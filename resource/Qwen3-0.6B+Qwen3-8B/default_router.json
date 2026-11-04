@@ -1,0 +1,96 @@
+{
+  "model": {
+    "model_type": "HiddenStatesTokenLMHeadLogitsClassifier",
+    "init_args": {
+      "hidden_states_size": 1024,
+      "logits_size": 100,
+      "hidden_dims": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1024,
+        1024
+      ],
+      "expansion_factor": 4,
+      "dropout_rate": 0.1,
+      "use_position_embedding": false,
+      "freeze_lm_head": true,
+      "normalize_input": false,
+      "pretrained_model_name": "/share/public/public_models/Qwen3-0.6B"
+    },
+    "model_specific_args": {},
+    "input_type": [
+      "hidden_states",
+      "token",
+      "logits"
+    ],
+    "output_type": "binary"
+  },
+  "data": {
+    "train": {
+      "path": [
+        "local:path_to_train_data"
+      ],
+      "type": "divergent",
+      "input_prefix": "small_"
+    },
+    "test": {
+      "path": [
+        "local:path_to_test_data"
+      ],
+      "type": "divergent",
+      "input_prefix": "small_"
+    }
+  },
+  "training": {
+    "optimizer": {
+      "lr": 5e-05,
+      "weight_decay": 0.0005
+    },
+    "params": {
+      "num_epochs": 50,
+      "batch_size": 1024,
+      "patience": 10,
+      "device": "cuda"
+    },
+    "loss": {
+      "type": "BCEWithLogitsLoss",
+      "recall_factor": 1.0
+    },
+    "validation": {
+      "valid_freq": 2
+    }
+  },
+  "optimizing": {
+    "type": "threshold",
+    "min_recall": 0.95
+  },
+  "output": {
+    "output_dir": "resource/default_Qwen3_router",
+    "checkpoint_dir": "output/checkpoint",
+    "model_name": null
+  },
+  "result": {
+    "model_path": "resource/default_Qwen3_router/classifier_20250721_075618.pt",
+    "results": {
+      "threshold": 0.41585858585858587,
+      "best_epoch": 6,
+      "best_val_loss": 0.7300227539726692,
+      "final_metrics": {
+        "accuracy": 0.7082084624867052,
+        "precision": 0.19552778524074732,
+        "recall": 0.9522588630536646,
+        "f1": 0.324438460310432,
+        "positive_rate": 0.3583452322483908
+      },
+      "pre_opt_metrics": {
+        "accuracy": 0.5940088876608873,
+        "precision": 0.5673482390164625,
+        "recall": 0.9289894792679693,
+        "f1": 0.7044673654711903,
+        "positive_rate": 0.8528884897884
+      }
+    }
+  }
+}

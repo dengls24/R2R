@@ -222,7 +222,7 @@ class SLDisaggregationSystem:
             got = 0
             tok = None
             while got < self.quick_num_gpus:
-                msg, rank, payload = self._quick_ready_queue.get(timeout=120)
+                msg, rank, payload = self._quick_ready_queue.get(timeout=3600)
                 if msg != "READY":
                     raise RuntimeError(f"unexpected ready msg: {msg}")
                 if tok is None and payload is not None:
@@ -253,7 +253,7 @@ class SLDisaggregationSystem:
             got_llm = 0
             ref_tok = None
             while got_llm < self.reference_num_gpus:
-                ready_msg = self._llm_ready_queue.get(timeout=300)
+                ready_msg = self._llm_ready_queue.get(timeout=3600)
                 # Compatible with formats: (msg, rank) or (msg, rank, tokenizer)
                 if len(ready_msg) == 2:
                     msg, rank = ready_msg

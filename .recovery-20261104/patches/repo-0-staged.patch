@@ -1,0 +1,105 @@
+diff --git a/r2r/models/sglang_patch/sl_disaggregation_system.py b/r2r/models/sglang_patch/sl_disaggregation_system.py
+index 745087e..5002837 100644
+--- a/r2r/models/sglang_patch/sl_disaggregation_system.py
++++ b/r2r/models/sglang_patch/sl_disaggregation_system.py
+@@ -222,7 +222,7 @@ class SLDisaggregationSystem:
+             got = 0
+             tok = None
+             while got < self.quick_num_gpus:
+-                msg, rank, payload = self._quick_ready_queue.get(timeout=120)
++                msg, rank, payload = self._quick_ready_queue.get(timeout=3600)
+                 if msg != "READY":
+                     raise RuntimeError(f"unexpected ready msg: {msg}")
+                 if tok is None and payload is not None:
+@@ -253,7 +253,7 @@ class SLDisaggregationSystem:
+             got_llm = 0
+             ref_tok = None
+             while got_llm < self.reference_num_gpus:
+-                ready_msg = self._llm_ready_queue.get(timeout=300)
++                ready_msg = self._llm_ready_queue.get(timeout=3600)
+                 # Compatible with formats: (msg, rank) or (msg, rank, tokenizer)
+                 if len(ready_msg) == 2:
+                     msg, rank = ready_msg
+diff --git a/resource/.gitattributes b/resource/.gitattributes
+new file mode 100644
+index 0000000..a6344aa
+--- /dev/null
++++ b/resource/.gitattributes
+@@ -0,0 +1,35 @@
++*.7z filter=lfs diff=lfs merge=lfs -text
++*.arrow filter=lfs diff=lfs merge=lfs -text
++*.bin filter=lfs diff=lfs merge=lfs -text
++*.bz2 filter=lfs diff=lfs merge=lfs -text
++*.ckpt filter=lfs diff=lfs merge=lfs -text
++*.ftz filter=lfs diff=lfs merge=lfs -text
++*.gz filter=lfs diff=lfs merge=lfs -text
++*.h5 filter=lfs diff=lfs merge=lfs -text
++*.joblib filter=lfs diff=lfs merge=lfs -text
++*.lfs.* filter=lfs diff=lfs merge=lfs -text
++*.mlmodel filter=lfs diff=lfs merge=lfs -text
++*.model filter=lfs diff=lfs merge=lfs -text
++*.msgpack filter=lfs diff=lfs merge=lfs -text
++*.npy filter=lfs diff=lfs merge=lfs -text
++*.npz filter=lfs diff=lfs merge=lfs -text
++*.onnx filter=lfs diff=lfs merge=lfs -text
++*.ot filter=lfs diff=lfs merge=lfs -text
++*.parquet filter=lfs diff=lfs merge=lfs -text
++*.pb filter=lfs diff=lfs merge=lfs -text
++*.pickle filter=lfs diff=lfs merge=lfs -text
++*.pkl filter=lfs diff=lfs merge=lfs -text
++*.pt filter=lfs diff=lfs merge=lfs -text
++*.pth filter=lfs diff=lfs merge=lfs -text
++*.rar filter=lfs diff=lfs merge=lfs -text
++*.safetensors filter=lfs diff=lfs merge=lfs -text
++saved_model/**/* filter=lfs diff=lfs merge=lfs -text
++*.tar.* filter=lfs diff=lfs merge=lfs -text
++*.tar filter=lfs diff=lfs merge=lfs -text
++*.tflite filter=lfs diff=lfs merge=lfs -text
++*.tgz filter=lfs diff=lfs merge=lfs -text
++*.wasm filter=lfs diff=lfs merge=lfs -text
++*.xz filter=lfs diff=lfs merge=lfs -text
++*.zip filter=lfs diff=lfs merge=lfs -text
++*.zst filter=lfs diff=lfs merge=lfs -text
++*tfevents* filter=lfs diff=lfs merge=lfs -text
+diff --git a/resource/README.md b/resource/README.md
+new file mode 100644
+index 0000000..9eb0bf2
+--- /dev/null
++++ b/resource/README.md
+@@ -0,0 +1,25 @@
++---
++library_name: r2r
++pipeline_tag: text-classification
++tags:
++- router
++- efficiency
++- language-model
++---
++
++# R2R Router Models
++
++This repository provides a collection of **R2R** routers (Mixture of Small and Large Language Models) and its training config built for different model pairs.
++
++## Model Description
++
++R2R routers are lightweight classifiers that decide, at the token level, whether to generate with a small language model (SLM) or delegate to a large language model (LLM). The goal is to retain LLM-level quality while improving end-to-end efficiency.
++
++We currently support routers for the **Qwen3** series and the **DeepSeek-R1-Qwen** series under *deterministic (non-sampling)* decoding. In addition, we provide a router tailored for routing between **DeepSeek-R1-Qwen-1.5B** and **DeepSeek-R1-Qwen-32B** under DeepSeek’s *default sampling* settings(temperature=0.6, top_p=0.95).
++
++## Usage
++
++For setup instructions, checkpoints, and examples, please visit our GitHub repository:
++
++- GitHub: [https://github.com/thu-nics/R2R](https://github.com/thu-nics/R2R)  
++- Project page: [https://fuvty.github.io/R2R_Project_Page/](https://fuvty.github.io/R2R_Project_Page/)
+diff --git a/script/inference/launch_r2r_server.py b/script/inference/launch_r2r_server.py
+index b5ca7b3..16da758 100644
+--- a/script/inference/launch_r2r_server.py
++++ b/script/inference/launch_r2r_server.py
+@@ -1,5 +1,6 @@
+ import argparse
+ import os
++os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
+ import uvicorn
+ import multiprocessing as mp
+ import yaml
