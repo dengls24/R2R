@@ -3,6 +3,10 @@ import os
 import uvicorn
 import multiprocessing as mp
 import yaml
+import random
+
+os.environ['MASTER_ADDR'] = 'localhost'
+os.environ.setdefault('MASTER_PORT', str(random.randint(20000, 30000)))
 
 from r2r.models import http_server
 from r2r.models.http_server import app

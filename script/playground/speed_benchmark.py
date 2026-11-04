@@ -1,6 +1,6 @@
 import os
 os.environ['MASTER_ADDR'] = 'localhost'
-os.environ.setdefault('MASTER_PORT', '29500')
+os.environ.setdefault('MASTER_PORT', '29588')
 import time
 import argparse
 import torch
@@ -205,6 +205,7 @@ class ModelBenchmark:
             }
             try:
                 engine = DynamicSimpleSGLangSelector(
+                    model_config=MODEL_DICT,
                     device="cuda",
                     dtype=torch.bfloat16,
                     switching_strategy='neural',

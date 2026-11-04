@@ -500,6 +500,8 @@ class DynamicSimpleSGLangSelector:
 
             # Use switching strategy to decide which model to use for each input
             model_choices = self.switching_strategy.route(model_outputs)
+            router_scores = getattr(self.switching_strategy, "last_scores", None)
+            slm_topk_values, slm_topk_ids = torch.topk(logits[:, -1, :], k=min(5, logits.shape[-1]), dim=-1)
 
             # Check if reference model is needed for any prompt
             reference_needed = torch.any(model_choices).item()
@@ -510,6 +512,10 @@ class DynamicSimpleSGLangSelector:
                 active_to_original = token_manager.get_active_index()
                 reference_original_indices = [active_to_original[i] for i in reference_indices]
                 reference_input_ids = token_manager.fetch_active_input_ids(reference_indices)
+                reference_pending_delta = {
+                    original_idx: len(input_id) - len(self.reference_prefix_indices_list[original_idx])
+                    for original_idx, input_id in zip(reference_original_indices, reference_input_ids)
+                }
 
                 # Generate with reference model for inputs that need it
                 reference_outputs = self.extend_step(
@@ -517,6 +523,10 @@ class DynamicSimpleSGLangSelector:
                     input_indices=reference_original_indices,
                     sampling_params=reference_sampling_params,
                 )
+                reference_output_by_original = {
+                    original_idx: int(token)
+                    for original_idx, token in zip(reference_original_indices, reference_outputs)
+                }
                 for i, reference_output_token in enumerate(reference_outputs):
                     next_token_ids[reference_indices[i]] = reference_output_token
 
@@ -538,6 +548,8 @@ class DynamicSimpleSGLangSelector:
                         # Add record
                         active_indicies = token_manager.get_active_index()
                         seq_idx = active_indicies[i]
+                        slm_prediction = int(model_outputs.token[i, -1].item())
+                        correction_token = reference_output_by_original.get(seq_idx)
                         recorders[seq_idx].add_record(
                             GenerationRecord(
                                 token_id=token,
@@ -546,6 +558,21 @@ class DynamicSimpleSGLangSelector:
                                 position=position,
                                 batch_id=seq_idx,
                                 param_size=param_size,
+                                quick_model_prediction=slm_prediction,
+                                reference_model_prediction=correction_token,
+                                slm_logits_topk_ids=[int(x) for x in slm_topk_ids[i].detach().cpu().tolist()],
+                                slm_logits_topk_values=[float(x) for x in slm_topk_values[i].detach().cpu().tolist()],
+                                router_score=(
+                                    float(router_scores[i].detach().cpu().item())
+                                    if router_scores is not None
+                                    else None
+                                ),
+                                route_decision="llm" if model_choices[i].item() == 1 else "slm",
+                                llm_activation_position=position if model_choices[i].item() == 1 else None,
+                                pending_length_delta=reference_pending_delta.get(seq_idx, 0),
+                                output_token=token,
+                                correction_token=correction_token,
+                                context_length=len(token_manager.get_active_input_ids()[i]),
                             )
                         )
 
@@ -580,6 +607,20 @@ class DynamicSimpleSGLangSelector:
                                 position=position,
                                 batch_id=seq_idx,
                                 param_size=float(self.model_config["quick"]["param"]),
+                                quick_model_prediction=token,
+                                slm_logits_topk_ids=[int(x) for x in slm_topk_ids[i].detach().cpu().tolist()],
+                                slm_logits_topk_values=[float(x) for x in slm_topk_values[i].detach().cpu().tolist()],
+                                router_score=(
+                                    float(router_scores[i].detach().cpu().item())
+                                    if router_scores is not None
+                                    else None
+                                ),
+                                route_decision="slm",
+                                llm_activation_position=None,
+                                pending_length_delta=0,
+                                output_token=token,
+                                correction_token=None,
+                                context_length=len(token_manager.get_active_input_ids()[i]),
                             )
                         )
 

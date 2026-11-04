@@ -19,6 +19,16 @@ class GenerationRecord:
     aleatoric_uncertainty: Optional[float] = None
     epistemic_uncertainty: Optional[float] = None
     reference_model_prediction: Optional[int] = None
+    # Hardware trace fields for downstream KVNAND timing models.
+    slm_logits_topk_ids: Optional[List[int]] = None
+    slm_logits_topk_values: Optional[List[float]] = None
+    router_score: Optional[float] = None
+    route_decision: Optional[str] = None
+    llm_activation_position: Optional[int] = None
+    pending_length_delta: Optional[int] = None
+    output_token: Optional[int] = None
+    correction_token: Optional[int] = None
+    context_length: Optional[int] = None
 
 class GenerationRecorder:
     def __init__(self):

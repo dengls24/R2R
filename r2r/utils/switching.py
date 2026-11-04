@@ -72,12 +72,15 @@ class ImmediateSwitching(ModelSwitchingStrategy):
         
         # Compute uncertainty for each sample in the batch
         model_choices = torch.zeros(batch_size, dtype=torch.int, device=next_token_logits.device)
+        scores = torch.zeros(batch_size, dtype=torch.float32, device=next_token_logits.device)
         
         for i in range(batch_size):
             aleatoric_uncertainty, _ = compute_logu(next_token_logits[i:i+1])
+            scores[i] = float(aleatoric_uncertainty)
             # 0 = quick (low uncertainty), 1 = reference (high uncertainty)
             model_choices[i] = 0 if aleatoric_uncertainty < self.threshold else 1
         
+        self.last_scores = scores
         # Update state based on batch decisions
         self.state.last_model = "reference" if model_choices.any().item() else "quick"
         return model_choices
@@ -112,12 +115,15 @@ class EntropySwitching(ModelSwitchingStrategy):
         
         # Compute entropy for each sample in the batch
         model_choices = torch.zeros(batch_size, dtype=torch.int, device=next_token_logits.device)
+        scores = torch.zeros(batch_size, dtype=torch.float32, device=next_token_logits.device)
         
         for i in range(batch_size):
             entropy = compute_entropy(next_token_logits[i:i+1])
+            scores[i] = float(entropy)
             # 0 = quick (low entropy), 1 = reference (high entropy)
             model_choices[i] = 0 if entropy < self.threshold else 1
         
+        self.last_scores = scores
         # Update state based on batch decisions
         self.state.last_model = "reference" if model_choices.any().item() else "quick"
         return model_choices
@@ -383,6 +389,7 @@ class NeuralSwitching(ModelSwitchingStrategy):
         # Handle different output formats (single output or multi-class)
         if model_output.shape[1] == 1:
             critical_prob = torch.sigmoid(model_output).squeeze(-1)  # [batch_size]
+            self.last_scores = critical_prob.detach()
             # Convert probabilities to binary decisions (0 = quick, 1 = reference)
             self.model_choices_buffer[:batch_size].copy_((critical_prob >= self.threshold).to(torch.int))
         else:
@@ -390,6 +397,7 @@ class NeuralSwitching(ModelSwitchingStrategy):
             # Classes: 0=match, 1=mismatch, 2=divergent
             probabilities = torch.softmax(model_output, dim=1)  # [batch_size, num_classes]
             critical_prob = probabilities[:, 2]  # Get probability of class 2 (divergent)
+            self.last_scores = critical_prob.detach()
             self.model_choices_buffer[:batch_size].copy_((critical_prob >= self.threshold).to(torch.int))
 
     def replay(self, outputs: ModelOutputs):
@@ -470,6 +478,7 @@ class NeuralSwitching(ModelSwitchingStrategy):
             # Handle different output formats (single output or multi-class)
             if model_output.shape[1] == 1:
                 critical_prob = torch.sigmoid(model_output).squeeze(-1)  # [batch_size]
+                self.last_scores = critical_prob.detach()
                 # Convert probabilities to binary decisions (0 = quick, 1 = reference)
                 model_choices = (critical_prob >= self.threshold).to(torch.int)
             else:
@@ -477,6 +486,7 @@ class NeuralSwitching(ModelSwitchingStrategy):
                 # Classes: 0=match, 1=mismatch, 2=divergent
                 probabilities = torch.softmax(model_output, dim=1)  # [batch_size, num_classes]
                 critical_prob = probabilities[:, 2]  # Get probability of class 2 (divergent)
+                self.last_scores = critical_prob.detach()
                 model_choices = (critical_prob >= self.threshold).to(torch.int)
             
             # For tracking state, we'll keep the most recent decision for each input

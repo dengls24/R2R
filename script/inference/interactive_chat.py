@@ -1,6 +1,7 @@
 import os
+import random
 os.environ['MASTER_ADDR'] = 'localhost'
-os.environ.setdefault('MASTER_PORT', '29500')
+os.environ.setdefault('MASTER_PORT', str(random.randint(20000, 30000)))
 import sys
 import time
 import argparse

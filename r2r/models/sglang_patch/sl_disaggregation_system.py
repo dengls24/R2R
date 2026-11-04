@@ -11,9 +11,10 @@ from transformers import AutoTokenizer
 import threading
 import asyncio
 import os
+import random
 from multiprocessing import Value
 os.environ["MASTER_ADDR"] = "localhost"
-os.environ["MASTER_PORT"] = "29500"
+os.environ.setdefault("MASTER_PORT", str(random.randint(20000, 30000)))
 
 from r2r.models.recorder import GenerationRecord, GenerationRecorder
 from r2r.models.sglang_patch.slm_server import SLMServer
@@ -241,7 +242,7 @@ class SLDisaggregationSystem:
             reference_sglang_kwargs=reference_sglang_kwargs,
             quick_num_gpus=self.quick_num_gpus,
             reference_num_gpus=self.reference_num_gpus,
-            reference_master_port=29501,
+            reference_master_port=29588,
             ready_queue=self._llm_ready_queue,
             overlap_tp_schedule=overlap_tp_schedule,
             mem_fraction_static=large_mem_fraction_static,

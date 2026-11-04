@@ -1,0 +1,751 @@
+{
+  "source_relative_to_home": "0-LLM/1-SLLM/0-r2r/R2R",
+  "source_files": [
+    {
+      "path": "speed_benchmark_20260126_155006.json",
+      "bytes": 6702,
+      "sha256": "3be2a40e0f2195e89d2b94ae14f594dd9197eb55d81d1853003f55987bde1d85",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_171047.json",
+      "bytes": 6170,
+      "sha256": "73e03b22d0712efb4c69da706d63a8edc635119798bdc057da2f465aa191cc53",
+      "mode": "100644"
+    },
+    {
+      "path": "setup_env.sh",
+      "bytes": 128,
+      "sha256": "1c576e68075060267c17f433e4859f67c153a40ec58ec6de8242a57f4c73480c",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_151835.json",
+      "bytes": 6707,
+      "sha256": "eadb4fa2dcc7bce5527f6c7476a0fd284fdb4173fc2b6015e8ab4141a5369b8b",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_170807.json",
+      "bytes": 17,
+      "sha256": "06421e11804b7897a786499c481dde318d8018cc15593b861c84356d191561eb",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_170207.json",
+      "bytes": 17,
+      "sha256": "06421e11804b7897a786499c481dde318d8018cc15593b861c84356d191561eb",
+      "mode": "100644"
+    },
+    {
+      "path": "README.md",
+      "bytes": 14350,
+      "sha256": "57a6be3b54dc2ff6cc919eab65bec0ae392c7180baf42977fe189eff44ce2f96",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_155049.json",
+      "bytes": 6704,
+      "sha256": "7282ee20f7b322e6a647d355400e52effa886fe120ae3c8944f4806cac095912",
+      "mode": "100644"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 1145,
+      "sha256": "5ad529c49c850bc67ccdc9a83d74c4efc6eea379bbe3279882454f5c52770aca",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_165305.json",
+      "bytes": 6671,
+      "sha256": "9e9f35ff91f877c8f6db805889d1d76e0111eb44e4531b9eaf900ec1c41ba036",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_170140.json",
+      "bytes": 17,
+      "sha256": "06421e11804b7897a786499c481dde318d8018cc15593b861c84356d191561eb",
+      "mode": "100644"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_172016.json",
+      "bytes": 6700,
+      "sha256": "65f9982f719a4ae7fc9e260d4d5df2318abdf25bcf2f582d54cbcf09283bea2c",
+      "mode": "100644"
+    },
+    {
+      "path": "speed_benchmark_20260126_154921.json",
+      "bytes": 6697,
+      "sha256": "e3d03c3d04a8d644f3e68afe93aa8592518aa0152e9e0c788a8113cf6cb18ab8",
+      "mode": "100644"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 722,
+      "sha256": "f56b7971e58fa81ce701b0e553da987f1a908c1726608ba84be12edabbf2ea7c",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling_api/run_pipeline_scripts.md",
+      "bytes": 2034,
+      "sha256": "5dfbc878f0db0a06ab8a478d1dfe43cd32dba616560d3d2cf56be978c13d4241",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling_api/step_2_llm_continuation.py",
+      "bytes": 18754,
+      "sha256": "3cd22eb2e17e4641810589cc60f8ec8828164de2f3f4978b387db86a8cfd14c9",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling_api/step_0_llm_response.py",
+      "bytes": 17711,
+      "sha256": "ff28431f6f17373a69b5c2d6646a2f327015e5626610cabdba38ce366f51ac6b",
+      "mode": "100644"
+    },
+    {
+      "path": "script/experimental/live_labeler/extract_live_continuation_results.py",
+      "bytes": 4071,
+      "sha256": "d5dead8e05eeff20f4d8542a6dba1d1acdac2eb4eb04a5988cd0c69242b82c7c",
+      "mode": "100644"
+    },
+    {
+      "path": "script/experimental/live_labeler/live_continuation.py",
+      "bytes": 28254,
+      "sha256": "8728333ed25e5f97cb3b4de743ae9cf688b1fd0f42efbbf45517960b060efea7",
+      "mode": "100755"
+    },
+    {
+      "path": "script/experimental/live_labeler/demo_divergent_labeler.py",
+      "bytes": 3555,
+      "sha256": "f377aaaab5f19956f613e68a64a9bcc8ed146fb4ee52666a5ec473b4435f099d",
+      "mode": "100644"
+    },
+    {
+      "path": "script/playground/summarize_speed_benchmarks.py",
+      "bytes": 3158,
+      "sha256": "d9dcaedf18275b1c9dbf373b8175fa5df09d5b98c01b4150f1af5c6eb2db7d48",
+      "mode": "100644"
+    },
+    {
+      "path": "script/playground/launch_llm_continuation_multi_node.py",
+      "bytes": 21181,
+      "sha256": "4e47982ac28f4cf6fc458ffa67d7bc192c289ac95e58d504ee87665cac662dfe",
+      "mode": "100644"
+    },
+    {
+      "path": "script/playground/speed_benchmark.py",
+      "bytes": 24690,
+      "sha256": "acc02a2aa704f6d4090c351954a55ca5d86b663103092d923480696fa1c899d7",
+      "mode": "100644"
+    },
+    {
+      "path": "script/playground/run_r2r_trace.py",
+      "bytes": 4982,
+      "sha256": "e4b9edf15b6d503823d55bc7dfda113402fa8ab88aa21f1f50b68fc60964f295",
+      "mode": "100644"
+    },
+    {
+      "path": "script/playground/generate_job_scripts.py",
+      "bytes": 18095,
+      "sha256": "26ac370e59b6f6eadecd7d10c630e0e0739b903df297c3507a6848ea27c0454d",
+      "mode": "100644"
+    },
+    {
+      "path": "script/playground/demo/gradio_demo.py",
+      "bytes": 61005,
+      "sha256": "f2fd1859518a05d3d109138feb2e5c8cb77465b8bf5b92eb25a9f39b0daf465a",
+      "mode": "100644"
+    },
+    {
+      "path": "script/inference/launch_base_model_server.py",
+      "bytes": 8125,
+      "sha256": "90062b0d640f40bfcdcf5589b1ebcef2f8fe1bd69e7d240aeca898e20fab45b3",
+      "mode": "100644"
+    },
+    {
+      "path": "script/inference/launch_r2r_server.py",
+      "bytes": 1722,
+      "sha256": "7c7d7c2533311c30209b2f3f32991f1014317c571961a4a0dbc59b07c5425d7a",
+      "mode": "100644"
+    },
+    {
+      "path": "script/inference/interactive_chat.py",
+      "bytes": 14681,
+      "sha256": "8e3fc9f0dd1ebe7e27ef6d419017a8d2c43d2346aade04308d70de6e1574fae2",
+      "mode": "100644"
+    },
+    {
+      "path": "script/train/train_router_param_search.py",
+      "bytes": 13321,
+      "sha256": "ed8a0cb815b2cb6ae7b7211102293ca280824c440b0bdec7b434b3daeb8cf370",
+      "mode": "100644"
+    },
+    {
+      "path": "script/train/train_router.py",
+      "bytes": 40678,
+      "sha256": "15ae35bcc92d6a9780f9d7965c7ff6f5b9da46308ecc7663cd94e728f31d63ad",
+      "mode": "100644"
+    },
+    {
+      "path": "script/evaluate/hf_dataset_sglang_server.py",
+      "bytes": 66307,
+      "sha256": "bbd5a4a90c68d4308abec9fc9b2bbc55391690690481d097bfc84105dcdf46b5",
+      "mode": "100644"
+    },
+    {
+      "path": "script/evaluate/hf_dataset_sglang.py",
+      "bytes": 60409,
+      "sha256": "f2af4cbd9c507a907cb6a19266f0f1a65580f4473fb0cf7aed75a1e2a5690f7f",
+      "mode": "100644"
+    },
+    {
+      "path": "script/evaluate/eval_configs/r2r_configs.json",
+      "bytes": 441,
+      "sha256": "50b5ca3b4e64a33e94594ca254ecd5f348d843a6a68556efe18f7a2c237ffab6",
+      "mode": "100644"
+    },
+    {
+      "path": "script/evaluate/eval_configs/dataset_configs.json",
+      "bytes": 4447,
+      "sha256": "4b164cdb3615feb5638db46e4de551d1d398b755c725f5a602ad9b9b85c4a80a",
+      "mode": "100755"
+    },
+    {
+      "path": "script/evaluate/eval_configs/model_configs.json",
+      "bytes": 638,
+      "sha256": "67b535e0d48ae6850825388d9d858141e5effc20a21fb5c89f8d69407de4c69b",
+      "mode": "100755"
+    },
+    {
+      "path": "script/data_labeling/run_pipeline_scripts.md",
+      "bytes": 2030,
+      "sha256": "14515b5594aee3976bb005ba053fc6bfebce640991de2384e897189d411ee2d8",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/support_dataset_config.json",
+      "bytes": 2822,
+      "sha256": "95430faec23cef4145781589d11e5769a5720f8db6415912c22ef4afe00ca678",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/auto_scheduler.py",
+      "bytes": 31367,
+      "sha256": "10846367593672f10edd01a4b854962e2bebf3dd9f01dff31a2a2349774bdc55",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/step_3_verify.py",
+      "bytes": 13317,
+      "sha256": "5e6d7f82f159d7d078c533c9c8bb90babdd97002d3fa9478d325e56f31681de8",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/data_generation.py",
+      "bytes": 7891,
+      "sha256": "908f3e8360ffdd085d3e09e4c79d71b8118f604c1ce62518af482ec38c562faa",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/step_2_llm_continuation.py",
+      "bytes": 24217,
+      "sha256": "254824b4322f4fce6d1f198775874d066d156485745ba147f159ca8a01c272d1",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/init_dataset_conversion.py",
+      "bytes": 8511,
+      "sha256": "f79777cac0d31825cb3e6146e748c7827f4f1568ff1f0c0ce87ba334a19d0446",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/step_1_slm_prefill.py",
+      "bytes": 20407,
+      "sha256": "37a181a76c10cb00fa9fb0684db6773e266aaa348e954790959dc50cc7abe7de",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/step_4_construct_label_dataset.py",
+      "bytes": 19737,
+      "sha256": "f7b18431cb17dfe85549fc64bc98b40fa8d87b24ff3c9a63dd0699f777608107",
+      "mode": "100644"
+    },
+    {
+      "path": "script/data_labeling/step_0_llm_response.py",
+      "bytes": 15453,
+      "sha256": "fa912a13647ed3bebca9e2b7ca1c837f16c023ccb0abb8f0507e21d06cacdcfc",
+      "mode": "100644"
+    },
+    {
+      "path": "script/utils/generate_pipeline_scripts.py",
+      "bytes": 17290,
+      "sha256": "aa020692f74165d031c2649d5bcc94cc3693993b63fb4eca2df8d99e6ee02603",
+      "mode": "100644"
+    },
+    {
+      "path": "test/test_http_openai_chat_completion.py",
+      "bytes": 3159,
+      "sha256": "1c46b2f86db5de32c98589be6358d89ebd23cb7d28bc4f8c050e65a9fe4e82e8",
+      "mode": "100644"
+    },
+    {
+      "path": "test/test_dynamic_simple_sglang_selector.py",
+      "bytes": 12901,
+      "sha256": "4fb4c609fd0d1ebdfe6b20847718d4fcffa50f3d947867da7e41e5ccb38e3430",
+      "mode": "100644"
+    },
+    {
+      "path": "test/test_speed_comparison.py",
+      "bytes": 9718,
+      "sha256": "2791a295f41ddf80cf5260be47059a890f2c80fcb23d5e3ff19861c51925f2e4",
+      "mode": "100644"
+    },
+    {
+      "path": "test/test_http_server_health.py",
+      "bytes": 1285,
+      "sha256": "9c2321882e1e8598a43f1f3f2d31b4d44bbdbb54adc1bf75895cc7dedb501719",
+      "mode": "100644"
+    },
+    {
+      "path": "test/test_system.py",
+      "bytes": 12547,
+      "sha256": "1228af5290523993962ac39ad4212db01a80f84b5bd5a1a7a9893b98dfb7a01b",
+      "mode": "100644"
+    },
+    {
+      "path": "test/test_http_openai_client.py",
+      "bytes": 2448,
+      "sha256": "c9908e90d54e0f08e0bfd404671c87f4e90a8e0d04b49fe8784c9f5bb9a2c00d",
+      "mode": "100644"
+    },
+    {
+      "path": "test/test_speed.sh",
+      "bytes": 101,
+      "sha256": "6bf965092653c898c92a2ea18ff5f458ff7dc6d649f3fd7274ba7f446f0f0195",
+      "mode": "100644"
+    },
+    {
+      "path": "test/test_http_server.py",
+      "bytes": 3163,
+      "sha256": "2d73d8a2c6907e112d10aeaf0e705c2c717ea77505cc66893d6dbf06d6b300be",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/train/optimizer.py",
+      "bytes": 9849,
+      "sha256": "75bad194015cd5f27c73ab03866dd9a0e8e1bc434ab52eadf345122f9d3f25ed",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/train/loss.py",
+      "bytes": 5623,
+      "sha256": "3a15fdfdf387af9a063201409006da22af54791e9d55e4bcd39a9b20cf2b3426",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/train/logger.py",
+      "bytes": 32099,
+      "sha256": "7a52abf9867233355a3d96a94ef60acd888341c7aa65ac7610a9eeeab51d9f16",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/evaluate/extract_livecodebench_answer.py",
+      "bytes": 5624,
+      "sha256": "52709a03c772f359ded77c0db25431c5c78b71f7981fa1452ced8c61e0f0e865",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/evaluate/eval_utils.py",
+      "bytes": 10202,
+      "sha256": "2947451e87b5524533b85e3d198dab2b7aaa798ecaa3ed398b2b02de391dc794",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/evaluate/codegen_metrics.py",
+      "bytes": 21750,
+      "sha256": "6e6413889fe9d8e830963e726a1e76740f74b87206f4a27735951e430b674041",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/data/data_process.py",
+      "bytes": 18577,
+      "sha256": "8232f94be51db2c133ed6912970510a6d8a12aca8485f7bafb01fd0d2194c414",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/data/live_labeler.py",
+      "bytes": 12737,
+      "sha256": "893a4ab238e371abc82caa0f351a2d9108a774309ae833f92453bc5421e76793",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/data/README.md",
+      "bytes": 8937,
+      "sha256": "fd69e330ed580d1db8bcd1ea48b95cbec78acb6e8e56020aa503b575bce4bc1b",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/data/generation_controller.py",
+      "bytes": 36148,
+      "sha256": "6d194568da18290335f059292f58f200215e5df422cc7becf536b9279d4acc4d",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/data/verify_model.py",
+      "bytes": 18642,
+      "sha256": "919e017ade2e39538490ee1ff7b7f1787c3d8525577c30b862c45371b800d1b1",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/data/utils/convert_eos_tokens.py",
+      "bytes": 5907,
+      "sha256": "111f5b48baf0035eb3f67c4d48e12e0c7274420ec771103d8c4ab2173ca16afa",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_wrapper.py",
+      "bytes": 15489,
+      "sha256": "d267fb43a96e77a6d96db1ad212868dc04bf53c820c5d8f0cf1b42c464d9d83d",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/router.py",
+      "bytes": 69393,
+      "sha256": "6586d8687ee697c2fa0008cc034ecae70cc97453be1fed64b8a82fe00748d128",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/recorder.py",
+      "bytes": 17758,
+      "sha256": "b1cd783bb759c5f4af2079e01205d4c138b0397e240a00734be665f4434e58e2",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/dynamic_sglang_selector_opt.py",
+      "bytes": 28862,
+      "sha256": "30cc30c92b1619b13731250dc732256815d5d627eb1c3f988771c6d418107cc0",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/http_server.py",
+      "bytes": 9787,
+      "sha256": "e2fb01e5978877730b2b8f27873f0f8380837cd34a832b6d540440cf01b077f2",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/dynamic_sglang_selector_simple.py",
+      "bytes": 24812,
+      "sha256": "e73283b78d636971f296bf6113c90fe3488c728c76d97b05a576f51365dea073",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/dynamic_sglang_selector.py",
+      "bytes": 29483,
+      "sha256": "f8053f7d1ce79b3c11eb9efd36260444f4be159c69f7082aaae6e9cbdaa88e3b",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/flashinfer_cuda_graph.py",
+      "bytes": 25346,
+      "sha256": "ad2b4c83c030b55837c20d7d3acaaded6a20740025ce00c4dd5213fc4263b794",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/schedule_req.py",
+      "bytes": 996,
+      "sha256": "3240bbe61b78161cea1e1ead0565714b3f0535054043a5e7dcb802863ed88e00",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/scheduler.py",
+      "bytes": 32860,
+      "sha256": "636987deb71de9589e40dfd1bc2ef494b5689acad1fccdf56ef544ec07b83426",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/patch.py",
+      "bytes": 1427,
+      "sha256": "5975e6b9fd36ce34cf35368d4289aaba5a1f63d16c2e10001ef1f121ee57abef",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/llm_server.py",
+      "bytes": 25707,
+      "sha256": "20f5a6a21370fc7e4b41ac04b43b6702db1fb7e66d0406fc5e5cf645b07d6a6b",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/llm_scheduler.py",
+      "bytes": 25571,
+      "sha256": "0b1333cb004fc0d175f76f70fc811c3a03d5516319d9f79c284fc14f5857ec5f",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/sgl_engine_patcher.py",
+      "bytes": 5488,
+      "sha256": "9a90c3b526fc7cd492ec8d8746a42546ecbd08b78f7b7bad585daa8520af985b",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/llm_cuda_graph_runner.py",
+      "bytes": 25581,
+      "sha256": "39597236e0714bdf0b34a37e45b4e19d62d24fd90f6cfdc23efbe6f5d8243324",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/llm_tp_worker.py",
+      "bytes": 5828,
+      "sha256": "f1993ed4a6145615b719fd2d7db6966323c10560227c8205fc7cae1792e71c49",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/llm_model_runner.py",
+      "bytes": 17559,
+      "sha256": "1349304e4bdeaa2e081b87c12917295ff57c6728f8ad40b22f8b0dcbf2e3a1d5",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/slm_server.py",
+      "bytes": 37532,
+      "sha256": "0adbbc7f38fd7d041ad9fa8118268969715687692f30b72a6688d9894541e6ae",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/schedule_batch.py",
+      "bytes": 24880,
+      "sha256": "dbd6c91cca9a88068f884ec23d401abc20eabf2f8b7fb8490e5081f0bd1cf34a",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/models/sglang_patch/sl_disaggregation_system.py",
+      "bytes": 26369,
+      "sha256": "746ae6f5ca7e120163749a35b31703f63b5c40ce743d4650711c7f41339a8b26",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/metrics.py",
+      "bytes": 3210,
+      "sha256": "9d4a0ec6d8e2acb938144b8d8f1d83d0a3ad398ab25ecf64d0df76ad859186ea",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/dataclass.py",
+      "bytes": 521,
+      "sha256": "6df89093906faf6c18273a6e437dd51fb5afc61a5a76cb2de97b2083cd17ac8a",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/model_configs-self.json",
+      "bytes": 1140,
+      "sha256": "0d22a248d3ec004b247c3571ce5eca2e06771e58dcfe2d70e5f7a7648cfb3831",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/model_configs.json",
+      "bytes": 1126,
+      "sha256": "3db7d8cc1e67a10d5fde179943e8c10b6368253c6529bde82b61b7c24ffe5ff4",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/dataset_conversion.py",
+      "bytes": 1185,
+      "sha256": "f14551394c7dbef88ad3dbcee97a1f6e8c7e37bb4a8adb402c317477d1c54bf8",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/sampling.py",
+      "bytes": 3339,
+      "sha256": "4d035e588efc2a14bc199cbfd643a8d811ac6600392374b8497d108df938abf0",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/token_manager.py",
+      "bytes": 9061,
+      "sha256": "a734cfcae328a636f0d6c13f8216bd50a3a825694b0fd8141be467365f9d5599",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/config.py",
+      "bytes": 757,
+      "sha256": "53871503b40c0d55e11e591ee26e871d0dd9a89e624af0c7721347e02d19e027",
+      "mode": "100644"
+    },
+    {
+      "path": "r2r/utils/switching.py",
+      "bytes": 38080,
+      "sha256": "20fa86ef3c0f2dccba90bb96488480b74d8795da1abc055f8dd4d781ea16764a",
+      "mode": "100644"
+    },
+    {
+      "path": "config/Qwen3-0.6B+Qwen3-8B.yaml",
+      "bytes": 1130,
+      "sha256": "9a5b7899c2daec348d8f16eefd146ea681c76d4f979522a4f80d7414d57d521a",
+      "mode": "100755"
+    },
+    {
+      "path": "config/Qwen3-4B+Qwen3-8B.yaml",
+      "bytes": 1117,
+      "sha256": "c7cc408a857b7975ecfea12bd58cd97a95b7cb10f2db39b475d4a922676fe2f0",
+      "mode": "100755"
+    },
+    {
+      "path": "config/Qwen3-0.6B+Qwen3-30B-A3BB.yaml",
+      "bytes": 1161,
+      "sha256": "d461e0f0ac43eead9a2f9bb68124fb0d3a95506aff23e424a7240c2dfe3864be",
+      "mode": "100755"
+    },
+    {
+      "path": "config/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-32B.yaml",
+      "bytes": 1375,
+      "sha256": "8017c1c6c1034a3a91f1bea9703428e70b5b45c1859bb6b990d41edb962167d5",
+      "mode": "100644"
+    },
+    {
+      "path": "config/Qwen3-0.6B+Qwen3-32B.yaml",
+      "bytes": 1141,
+      "sha256": "d10f33c282d6d53708870e3b1087769566aadeecc768a809220c5615a73c0b59",
+      "mode": "100755"
+    },
+    {
+      "path": "config/Qwen3-1.7B+Qwen3-8B.yaml",
+      "bytes": 1130,
+      "sha256": "b6698f2f01ad55f8cb20d5d6c4661fb52724da37c820977dcd7d112b01a15da7",
+      "mode": "100755"
+    },
+    {
+      "path": "config/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-32B_aleatoric.yaml",
+      "bytes": 1303,
+      "sha256": "f026b275823bf1120688ea89a23579e54aaf46835f04382b98e538088d01fa66",
+      "mode": "100644"
+    },
+    {
+      "path": "config/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-32B_entropy.yaml",
+      "bytes": 1298,
+      "sha256": "2765e6657e0326440036d23642264f8be74b7e522225546b91de4bd4da76adfe",
+      "mode": "100644"
+    },
+    {
+      "path": "resource/logo.png",
+      "bytes": 499454,
+      "sha256": "3bb173c20bfb8c9cf212a07cbf7dd4c3cd7121f21499ce345a574b60847bbdb9",
+      "mode": "100644"
+    },
+    {
+      "path": "resource/default_training_config_qwen3_1_7b.json",
+      "bytes": 1702,
+      "sha256": "5226065a5074a5bda2ae3e93d309a29fcf95c1bd6edfb73d7935c6058cc54701",
+      "mode": "100644"
+    },
+    {
+      "path": "resource/default_training_config_qwen_r1.json",
+      "bytes": 1716,
+      "sha256": "17b6bcd08cfed900a8f46adc910964a62146b7f2f49a213fdc07e78b74bca1cf",
+      "mode": "100644"
+    },
+    {
+      "path": "resource/default_training_config_qwen3_4b.json",
+      "bytes": 1722,
+      "sha256": "e06ef649e0eff840340a3e7b35044e23d7782078f2c0cc9a9006501777795fb4",
+      "mode": "100644"
+    },
+    {
+      "path": "resource/default_training_config.json",
+      "bytes": 1607,
+      "sha256": "d0365dd5aa85efeb1f38ea6291e8f5726a0e95e46cd3f438c426653d2c0e0ad2",
+      "mode": "100644"
+    },
+    {
+      "path": "resource/default_training_config_qwen3_0_6b.json",
+      "bytes": 1702,
+      "sha256": "8324587628564e7e84ca5bce97b3f38c38abba4798fe9159398d0b454314a828",
+      "mode": "100644"
+    },
+    {
+      "path": "resource/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-1.5B-32B/default_router.json",
+      "bytes": 1516,
+      "sha256": "8fbc6ac44d4a40f97475fe9f6da2b39a91771a1486d3c8e039375e07424454ff",
+      "mode": "100644"
+    },
+    {
+      "path": "resource/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-1.5B-32B/default_router_sampling.json",
+      "bytes": 1516,
+      "sha256": "8fbc6ac44d4a40f97475fe9f6da2b39a91771a1486d3c8e039375e07424454ff",
+      "mode": "100644"
+    }
+  ],
+  "excluded_files": [
+    {
+      "path": "nohup.out",
+      "bytes": 9357,
+      "mode": 384,
+      "mtime_ns": 1769415369455273744,
+      "kind": "file",
+      "reason": "runtime_log"
+    },
+    {
+      "path": "resource/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-1.5B-32B/default_router_sampling.pt",
+      "bytes": 225227481,
+      "mode": 420,
+      "mtime_ns": 1769412249210398145,
+      "kind": "file",
+      "reason": "model_parameters"
+    },
+    {
+      "path": "resource/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-1.5B-32B/default_router.pt",
+      "bytes": 225226885,
+      "mode": 420,
+      "mtime_ns": 1769412249003400780,
+      "kind": "file",
+      "reason": "model_parameters"
+    }
+  ],
+  "excluded_directories": [
+    ".git",
+    "script/playground/__pycache__",
+    "r2r/__pycache__",
+    "r2r/train/__pycache__",
+    "r2r/evaluate/__pycache__",
+    "r2r/data/__pycache__",
+    "r2r/data/utils/__pycache__",
+    "r2r/models/__pycache__",
+    "r2r/models/sglang_patch/__pycache__",
+    "r2r/utils/__pycache__"
+  ],
+  "git_repositories": [
+    {
+      "path": ".",
+      "head": "cd5b6287e706dfc01d88c0ad57a9f61aeba87ef5",
+      "branch": "main",
+      "status": " M r2r/models/dynamic_sglang_selector.py\u0000 M r2r/models/recorder.py\u0000 M r2r/models/sglang_patch/sl_disaggregation_system.py\u0000 M r2r/models/sglang_patch/slm_server.py\u0000 M r2r/utils/switching.py\u0000 M script/inference/interactive_chat.py\u0000 M script/inference/launch_r2r_server.py\u0000 M script/playground/speed_benchmark.py\u0000?? nohup.out\u0000?? script/playground/run_r2r_trace.py\u0000?? script/playground/summarize_speed_benchmarks.py\u0000",
+      "tracked": "100644 6afb2dfe226f96c2fe91e922f6d3454e66b51568 0\t.gitignore\u0000100644 261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64 0\tLICENSE\u0000100644 a0b918cfb29b35a2d1524ba67d712ba8c9241282 0\tREADME.md\u0000100644 c53688e6d669e2efa15b5809aee5ff398bcc99ff 0\tconfig/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-32B.yaml\u0000100644 bc43873079597b96330fa902fb7ff68b26b6ff71 0\tconfig/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-32B_aleatoric.yaml\u0000100644 7232cb7bcb7fcc46cab84c769d393574109f74f8 0\tconfig/DeepSeek-R1-Distill-Qwen-1.5B+DeepSeek-R1-Distill-Qwen-32B_entropy.yaml\u0000100755 58179ca08e46df8e332ca3f175a8f7fd778ee326 0\tconfig/Qwen3-0.6B+Qwen3-30B-A3BB.yaml\u0000100755 4801b387ade82ba95b9666fd256cb56b1cef4ad4 0\tconfig/Qwen3-0.6B+Qwen3-32B.yaml\u0000100755 af5e0b471cfbc901998ad633117463b0c8b79133 0\tconfig/Qwen3-0.6B+Qwen3-8B.yaml\u0000100755 8b1a205a4f65fde4277373ecde44e3e5c15a6072 0\tconfig/Qwen3-1.7B+Qwen3-8B.yaml\u0000100755 a8fa77358b5a0f13f590592013afddebd870e40a 0\tconfig/Qwen3-4B+Qwen3-8B.yaml\u0000100644 d59f2ccc0ae92076f1a88dd63731c2690db53d35 0\tpyproject.toml\u0000100644 e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 0\tr2r/__init__.py\u0000100644 c45e7b1b25fd20065684d8b013205adecd56c96f 0\tr2r/data/README.md\u0000100644 64c12dd9d8fedd9519e90f7a1a4d8feb43854307 0\tr2r/data/data_process.py\u0000100644 67785f889963648b7c2e28040f41d4c867464d73 0\tr2r/data/generation_controller.py\u0000100644 324cb6cf43392f6ac1efe0dfc5c312e41f40150b 0\tr2r/data/live_labeler.py\u0000100644 66affe365b1779d637e5e1c7dda5b8c05fba45ae 0\tr2r/data/utils/convert_eos_tokens.py\u0000100644 cfe61f9f10e4477702546a5ddb5d2ee96dc4d916 0\tr2r/data/verify_model.py\u0000100644 792a22a87de5f4c08a276c4af587787c4dc22f8a 0\tr2r/evaluate/codegen_metrics.py\u0000100644 6cebe48a1b9487c11fe00f430059f8d8b5557245 0\tr2r/evaluate/eval_utils.py\u0000100644 66698b3882ffa5f9421113134a41c5f2d9cb0d43 0\tr2r/evaluate/extract_livecodebench_answer.py\u0000100644 e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 0\tr2r/models/__init__.py\u0000100644 58d85ed0a78f59ef8bff62693f9f0116d5ebbb3f 0\tr2r/models/dynamic_sglang_selector.py\u0000100644 3eb8fe40d4b3f03927c75b3b133f2f471892b24d 0\tr2r/models/dynamic_sglang_selector_opt.py\u0000100644 da66ad3d4ab11be9e17b95b262d932b15ef8c12f 0\tr2r/models/dynamic_sglang_selector_simple.py\u0000100644 3a0f255f5a06d67d9d2c25e494e6e4ff0b063063 0\tr2r/models/http_server.py\u0000100644 7301f50467ef0d955f2c439393e76aed6574f9c3 0\tr2r/models/recorder.py\u0000100644 eab3ca94d3366c906d66256cf1197611dd01da38 0\tr2r/models/router.py\u0000100644 eb97ed4e6f670c73362c2b7618fdd9a5e50cc774 0\tr2r/models/sglang_patch/flashinfer_cuda_graph.py\u0000100644 b490c6fae3843a9e5b7dd906bce8c1ec8b3611d4 0\tr2r/models/sglang_patch/llm_cuda_graph_runner.py\u0000100644 6fa88b659d9127a94408e0e75578a48b6142699b 0\tr2r/models/sglang_patch/llm_model_runner.py\u0000100644 4e8c2c55e97f3a829d315e21596ed38145ec57a9 0\tr2r/models/sglang_patch/llm_scheduler.py\u0000100644 2563f1f0ce961734378539a1b6800677bdfe9730 0\tr2r/models/sglang_patch/llm_server.py\u0000100644 65f03f6b7e8a76493e8e7146a40e3d92c658b1ad 0\tr2r/models/sglang_patch/llm_tp_worker.py\u0000100644 5f01f0cf93dfb1f22e279b390def96766189d222 0\tr2r/models/sglang_patch/patch.py\u0000100644 aa78c3de02c50d4d23a39eb1bba8673c520ac36f 0\tr2r/models/sglang_patch/schedule_batch.py\u0000100644 b3ed712eb364eb6e74490ad38c8b702f0281bc2e 0\tr2r/models/sglang_patch/schedule_req.py\u0000100644 b3d8a85174bb64f58e4b8fc465af70f828b4ea5d 0\tr2r/models/sglang_patch/scheduler.py\u0000100644 e61f305904a10626a2ad08e65d98d30a45bb822f 0\tr2r/models/sglang_patch/sgl_engine_patcher.py\u0000100644 745087e8f9773bf11facc4534b0778242f1001f2 0\tr2r/models/sglang_patch/sl_disaggregation_system.py\u0000100644 12c364337ea75ae81f4cafd88f180c72956cac19 0\tr2r/models/sglang_patch/slm_server.py\u0000100644 b07842193b4b00c48e9b2dd1c23f6a7a310f503c 0\tr2r/models/sglang_wrapper.py\u0000100644 e290bb4e8ea08928115952e6f5ec3018e064b82c 0\tr2r/train/logger.py\u0000100644 04ccb248fa7bdeace36f34a75f3416c7a5fdaec6 0\tr2r/train/loss.py\u0000100644 3517e07ab51a9dde5d4f3ac79748f9f0b6f679fc 0\tr2r/train/optimizer.py\u0000100644 e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 0\tr2r/utils/__init__.py\u0000100644 785fffa6de85da71490b514d3e3f8b8bf427a65b 0\tr2r/utils/config.py\u0000100644 2c6a0d4cce013438bd69e7f6d202a34f1f9cffef 0\tr2r/utils/dataclass.py\u0000100644 366847724e1327e1e2c3e3616a7fa4f829448026 0\tr2r/utils/dataset_conversion.py\u0000100644 d356a35bc69066952fc63eeecf2e49a9e8d47911 0\tr2r/utils/metrics.py\u0000100644 44833d2dfd9e339248f45392acf82a7f1d939676 0\tr2r/utils/model_configs.json\u0000100644 a5c814ca8f0ee3442949f2d75a3e5ed9eca161e4 0\tr2r/utils/sampling.py\u0000100644 81781e2161e6fca0de91b5956d0ed749e3245cad 0\tr2r/utils/switching.py\u0000100644 52657e7cad6ba7051fe2e3d67b9a33d089aa8ca0 0\tr2r/utils/token_manager.py\u0000100644 e8b8a95008d1e5d0fc70531060161470f4c0214a 0\tresource/default_training_config.json\u0000100644 919f8a95703f6781e13d79531b33bf82b7accf1b 0\tresource/default_training_config_qwen3_0_6b.json\u0000100644 609e5cd08721818d1de27d84e1c446bea49b0310 0\tresource/default_training_config_qwen3_1_7b.json\u0000100644 983ede57e1fcc8b5e205394e66f58af14d1c35f4 0\tresource/default_training_config_qwen3_4b.json\u0000100644 bd5a94e29fde2e69574cc52fe5299d4c7626baed 0\tresource/default_training_config_qwen_r1.json\u0000100644 183e48cc7116a42e3f9a100764ccc20bc9cd7052 0\tresource/logo.png\u0000100644 30d93d28a16312cec680747965f603a1881e9cd3 0\tscript/data_labeling/auto_scheduler.py\u0000100644 65e42f0d4226b44ec727d113c15275c80b2523c4 0\tscript/data_labeling/data_generation.py\u0000100644 5b1a0050c352cec96817229807444fcba141b089 0\tscript/data_labeling/init_dataset_conversion.py\u0000100644 73f6d8763428fbb887af36d2cb72fa7b57d05b42 0\tscript/data_labeling/run_pipeline_scripts.md\u0000100644 7c276de61918ea273eeba85bb59d1de603d70b9d 0\tscript/data_labeling/step_0_llm_response.py\u0000100644 e289e62b87ddf1104afbe1626cc84e48bc54d822 0\tscript/data_labeling/step_1_slm_prefill.py\u0000100644 677dd1080f6a51aa57c668931c7ae42f2c512445 0\tscript/data_labeling/step_2_llm_continuation.py\u0000100644 6a87efb804458d4d78e63ff445038f3338aed030 0\tscript/data_labeling/step_3_verify.py\u0000100644 88604a29132486fbfb9278e507519bff6f6cdc2d 0\tscript/data_labeling/step_4_construct_label_dataset.py\u0000100644 085c6540f7f110c50ae6d7c33e7a64faaa7db9f4 0\tscript/data_labeling/support_dataset_config.json\u0000100644 d05cb3c03aa998ad52ecce62d41c5ab3c35c9c23 0\tscript/data_labeling_api/run_pipeline_scripts.md\u0000100644 170586f75f7c0fa8c2f4d3d24cf8b02eb4632f72 0\tscript/data_labeling_api/step_0_llm_response.py\u0000100644 4697c8e6638dcf6e2a9a33b0a6705d45c057ae19 0\tscript/data_labeling_api/step_2_llm_continuation.py\u0000100755 380cc42875100837bf7377e9847a14273f3fc245 0\tscript/evaluate/eval_configs/dataset_configs.json\u0000100755 402cc850c27279696ebbf86a54a172239c45c788 0\tscript/evaluate/eval_configs/model_configs.json\u0000100644 746249354fa6dce03933b101371f9dbb5475d101 0\tscript/evaluate/eval_configs/r2r_configs.json\u0000100644 de5e22c62c5c18e5d8170cc192ebb73ff3a7c3a1 0\tscript/evaluate/hf_dataset_sglang.py\u0000100644 0b079b170939379cc3c9a4cee3a809c6700c924e 0\tscript/evaluate/hf_dataset_sglang_server.py\u0000100644 ba33bbe09f6648615d66416627202a7de76d09a3 0\tscript/experimental/live_labeler/demo_divergent_labeler.py\u0000100644 0f71ade95c909c709cb3d60727edf3919820470d 0\tscript/experimental/live_labeler/extract_live_continuation_results.py\u0000100755 38f6f2f0e92ae9dceb3b32244a0e5b296216c720 0\tscript/experimental/live_labeler/live_continuation.py\u0000100644 f19ece0a7284932badcb82b7186cd8a8fa695843 0\tscript/inference/interactive_chat.py\u0000100644 4824680a0e407cc088aff0f7cccfe7bc14fe0ad5 0\tscript/inference/launch_base_model_server.py\u0000100644 b5ca7b36b98f1a6ee3e3f2cfbab86968f4aa7890 0\tscript/inference/launch_r2r_server.py\u0000100644 e702655eb444e4247d9eea633ae885b3e9e85858 0\tscript/playground/demo/gradio_demo.py\u0000100644 f72e7b0fa155ecff6e35bf3c7ec61646d54e7ad2 0\tscript/playground/generate_job_scripts.py\u0000100644 d3e8ed062462f018d42c42d440151b2d3ab9f1ae 0\tscript/playground/launch_llm_continuation_multi_node.py\u0000100644 4d5a6f9d9fe074d18ce681e6fee8f359981ca51a 0\tscript/playground/speed_benchmark.py\u0000100644 10fd5eabbd7457ee545002f2c2784f3dc93abbf6 0\tscript/train/train_router.py\u0000100644 7d729c01fcb97b821a87fb6e30d35054dedd8a34 0\tscript/train/train_router_param_search.py\u0000100644 d5aaaa46ae379d67c37053b795770164b647fcbc 0\tscript/utils/generate_pipeline_scripts.py\u0000100644 552e47f845df001589d26fa75c0f7012ffd4e4a6 0\tsetup_env.sh\u0000100644 32d968e2eda6bb1f611c0d033507acae3ef606dc 0\ttest/test_dynamic_simple_sglang_selector.py\u0000100644 9a79c60e22c4ccaed0ca1fe4ee01af8e28ddd879 0\ttest/test_http_openai_chat_completion.py\u0000100644 5dcbb993f5c4bc415462620f1b2aa67a7c7c552e 0\ttest/test_http_openai_client.py\u0000100644 cd876f2a2719f4d775a8cc5763df8bc666244086 0\ttest/test_http_server.py\u0000100644 e4ac009b8c28903d16e36f6ee9c3c2fb4c9c51f1 0\ttest/test_http_server_health.py\u0000100644 64158c3f4174362f339b7f37a4cc721efaea018c 0\ttest/test_speed.sh\u0000100644 20baada926551d999aecd9581ab3687f49fcc342 0\ttest/test_speed_comparison.py\u0000100644 09dfa8394e102ce3332ec49401a780ecfbca6ca3 0\ttest/test_system.py\u0000",
+      "origin": "https://gitclone.com/github.com/dengls24/R2R.git",
+      "refs": "refs/heads/main cd5b6287e706dfc01d88c0ad57a9f61aeba87ef5\nrefs/remotes/origin/HEAD cd5b6287e706dfc01d88c0ad57a9f61aeba87ef5\nrefs/remotes/origin/main cd5b6287e706dfc01d88c0ad57a9f61aeba87ef5\n",
+      "diff_stat": " r2r/models/dynamic_sglang_selector.py              | 41 ++++++++++++++++++++++\n r2r/models/recorder.py                             | 10 ++++++\n .../sglang_patch/sl_disaggregation_system.py       |  5 +--\n r2r/models/sglang_patch/slm_server.py              | 18 +++++++++-\n r2r/utils/switching.py                             | 10 ++++++\n script/inference/interactive_chat.py               |  3 +-\n script/inference/launch_r2r_server.py              |  4 +++\n script/playground/speed_benchmark.py               |  3 +-\n 8 files changed, 89 insertions(+), 5 deletions(-)\n"
+    }
+  ]
+}

@@ -226,7 +226,23 @@ class SLMServer:
         llm_kvcache_size: Optional[Value] = None,
     ):
         
-        dist.init_process_group(backend='nccl', rank=rank, world_size=world_size)
+        import random
+        os.environ["MASTER_ADDR"] = "localhost"
+        base_port = random.randint(20000, 30000)
+        max_retries = 10
+        
+        for i in range(max_retries):
+            try:
+                current_port = str(base_port + i)
+                os.environ["MASTER_PORT"] = current_port
+                dist.init_process_group(backend='nccl', rank=rank, world_size=world_size)
+                break
+            except Exception as e:
+                if i == max_retries - 1:
+                    raise e
+                print(f"Port {current_port} in use or failed, retrying with {base_port + i + 1}...")
+                time.sleep(1)
+                
         torch.cuda.set_device(rank)
 
         port_args = PortArgs.init_new(server_args)

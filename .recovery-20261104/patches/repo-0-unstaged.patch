@@ -1,0 +1,278 @@
+diff --git a/r2r/models/dynamic_sglang_selector.py b/r2r/models/dynamic_sglang_selector.py
+index 58d85ed..a2b83b1 100644
+--- a/r2r/models/dynamic_sglang_selector.py
++++ b/r2r/models/dynamic_sglang_selector.py
+@@ -500,6 +500,8 @@ class DynamicSimpleSGLangSelector:
+ 
+             # Use switching strategy to decide which model to use for each input
+             model_choices = self.switching_strategy.route(model_outputs)
++            router_scores = getattr(self.switching_strategy, "last_scores", None)
++            slm_topk_values, slm_topk_ids = torch.topk(logits[:, -1, :], k=min(5, logits.shape[-1]), dim=-1)
+ 
+             # Check if reference model is needed for any prompt
+             reference_needed = torch.any(model_choices).item()
+@@ -510,6 +512,10 @@ class DynamicSimpleSGLangSelector:
+                 active_to_original = token_manager.get_active_index()
+                 reference_original_indices = [active_to_original[i] for i in reference_indices]
+                 reference_input_ids = token_manager.fetch_active_input_ids(reference_indices)
++                reference_pending_delta = {
++                    original_idx: len(input_id) - len(self.reference_prefix_indices_list[original_idx])
++                    for original_idx, input_id in zip(reference_original_indices, reference_input_ids)
++                }
+ 
+                 # Generate with reference model for inputs that need it
+                 reference_outputs = self.extend_step(
+@@ -517,6 +523,10 @@ class DynamicSimpleSGLangSelector:
+                     input_indices=reference_original_indices,
+                     sampling_params=reference_sampling_params,
+                 )
++                reference_output_by_original = {
++                    original_idx: int(token)
++                    for original_idx, token in zip(reference_original_indices, reference_outputs)
++                }
+                 for i, reference_output_token in enumerate(reference_outputs):
+                     next_token_ids[reference_indices[i]] = reference_output_token
+ 
+@@ -538,6 +548,8 @@ class DynamicSimpleSGLangSelector:
+                         # Add record
+                         active_indicies = token_manager.get_active_index()
+                         seq_idx = active_indicies[i]
++                        slm_prediction = int(model_outputs.token[i, -1].item())
++                        correction_token = reference_output_by_original.get(seq_idx)
+                         recorders[seq_idx].add_record(
+                             GenerationRecord(
+                                 token_id=token,
+@@ -546,6 +558,21 @@ class DynamicSimpleSGLangSelector:
+                                 position=position,
+                                 batch_id=seq_idx,
+                                 param_size=param_size,
++                                quick_model_prediction=slm_prediction,
++                                reference_model_prediction=correction_token,
++                                slm_logits_topk_ids=[int(x) for x in slm_topk_ids[i].detach().cpu().tolist()],
++                                slm_logits_topk_values=[float(x) for x in slm_topk_values[i].detach().cpu().tolist()],
++                                router_score=(
++                                    float(router_scores[i].detach().cpu().item())
++                                    if router_scores is not None
++                                    else None
++                                ),
++                                route_decision="llm" if model_choices[i].item() == 1 else "slm",
++                                llm_activation_position=position if model_choices[i].item() == 1 else None,
++                                pending_length_delta=reference_pending_delta.get(seq_idx, 0),
++                                output_token=token,
++                                correction_token=correction_token,
++                                context_length=len(token_manager.get_active_input_ids()[i]),
+                             )
+                         )
+ 
+@@ -580,6 +607,20 @@ class DynamicSimpleSGLangSelector:
+                                 position=position,
+                                 batch_id=seq_idx,
+                                 param_size=float(self.model_config["quick"]["param"]),
++                                quick_model_prediction=token,
++                                slm_logits_topk_ids=[int(x) for x in slm_topk_ids[i].detach().cpu().tolist()],
++                                slm_logits_topk_values=[float(x) for x in slm_topk_values[i].detach().cpu().tolist()],
++                                router_score=(
++                                    float(router_scores[i].detach().cpu().item())
++                                    if router_scores is not None
++                                    else None
++                                ),
++                                route_decision="slm",
++                                llm_activation_position=None,
++                                pending_length_delta=0,
++                                output_token=token,
++                                correction_token=None,
++                                context_length=len(token_manager.get_active_input_ids()[i]),
+                             )
+                         )
+ 
+diff --git a/r2r/models/recorder.py b/r2r/models/recorder.py
+index 7301f50..12110d2 100644
+--- a/r2r/models/recorder.py
++++ b/r2r/models/recorder.py
+@@ -19,6 +19,16 @@ class GenerationRecord:
+     aleatoric_uncertainty: Optional[float] = None
+     epistemic_uncertainty: Optional[float] = None
+     reference_model_prediction: Optional[int] = None
++    # Hardware trace fields for downstream KVNAND timing models.
++    slm_logits_topk_ids: Optional[List[int]] = None
++    slm_logits_topk_values: Optional[List[float]] = None
++    router_score: Optional[float] = None
++    route_decision: Optional[str] = None
++    llm_activation_position: Optional[int] = None
++    pending_length_delta: Optional[int] = None
++    output_token: Optional[int] = None
++    correction_token: Optional[int] = None
++    context_length: Optional[int] = None
+ 
+ class GenerationRecorder:
+     def __init__(self):
+diff --git a/r2r/models/sglang_patch/sl_disaggregation_system.py b/r2r/models/sglang_patch/sl_disaggregation_system.py
+index 745087e..43eaa93 100644
+--- a/r2r/models/sglang_patch/sl_disaggregation_system.py
++++ b/r2r/models/sglang_patch/sl_disaggregation_system.py
+@@ -11,9 +11,10 @@ from transformers import AutoTokenizer
+ import threading
+ import asyncio
+ import os
++import random
+ from multiprocessing import Value
+ os.environ["MASTER_ADDR"] = "localhost"
+-os.environ["MASTER_PORT"] = "29500"
++os.environ.setdefault("MASTER_PORT", str(random.randint(20000, 30000)))
+ 
+ from r2r.models.recorder import GenerationRecord, GenerationRecorder
+ from r2r.models.sglang_patch.slm_server import SLMServer
+@@ -241,7 +242,7 @@ class SLDisaggregationSystem:
+             reference_sglang_kwargs=reference_sglang_kwargs,
+             quick_num_gpus=self.quick_num_gpus,
+             reference_num_gpus=self.reference_num_gpus,
+-            reference_master_port=29501,
++            reference_master_port=29588,
+             ready_queue=self._llm_ready_queue,
+             overlap_tp_schedule=overlap_tp_schedule,
+             mem_fraction_static=large_mem_fraction_static,
+diff --git a/r2r/models/sglang_patch/slm_server.py b/r2r/models/sglang_patch/slm_server.py
+index 12c3643..9fd410e 100644
+--- a/r2r/models/sglang_patch/slm_server.py
++++ b/r2r/models/sglang_patch/slm_server.py
+@@ -226,7 +226,23 @@ class SLMServer:
+         llm_kvcache_size: Optional[Value] = None,
+     ):
+         
+-        dist.init_process_group(backend='nccl', rank=rank, world_size=world_size)
++        import random
++        os.environ["MASTER_ADDR"] = "localhost"
++        base_port = random.randint(20000, 30000)
++        max_retries = 10
++        
++        for i in range(max_retries):
++            try:
++                current_port = str(base_port + i)
++                os.environ["MASTER_PORT"] = current_port
++                dist.init_process_group(backend='nccl', rank=rank, world_size=world_size)
++                break
++            except Exception as e:
++                if i == max_retries - 1:
++                    raise e
++                print(f"Port {current_port} in use or failed, retrying with {base_port + i + 1}...")
++                time.sleep(1)
++                
+         torch.cuda.set_device(rank)
+ 
+         port_args = PortArgs.init_new(server_args)
+diff --git a/r2r/utils/switching.py b/r2r/utils/switching.py
+index 81781e2..fa956cb 100644
+--- a/r2r/utils/switching.py
++++ b/r2r/utils/switching.py
+@@ -72,12 +72,15 @@ class ImmediateSwitching(ModelSwitchingStrategy):
+         
+         # Compute uncertainty for each sample in the batch
+         model_choices = torch.zeros(batch_size, dtype=torch.int, device=next_token_logits.device)
++        scores = torch.zeros(batch_size, dtype=torch.float32, device=next_token_logits.device)
+         
+         for i in range(batch_size):
+             aleatoric_uncertainty, _ = compute_logu(next_token_logits[i:i+1])
++            scores[i] = float(aleatoric_uncertainty)
+             # 0 = quick (low uncertainty), 1 = reference (high uncertainty)
+             model_choices[i] = 0 if aleatoric_uncertainty < self.threshold else 1
+         
++        self.last_scores = scores
+         # Update state based on batch decisions
+         self.state.last_model = "reference" if model_choices.any().item() else "quick"
+         return model_choices
+@@ -112,12 +115,15 @@ class EntropySwitching(ModelSwitchingStrategy):
+         
+         # Compute entropy for each sample in the batch
+         model_choices = torch.zeros(batch_size, dtype=torch.int, device=next_token_logits.device)
++        scores = torch.zeros(batch_size, dtype=torch.float32, device=next_token_logits.device)
+         
+         for i in range(batch_size):
+             entropy = compute_entropy(next_token_logits[i:i+1])
++            scores[i] = float(entropy)
+             # 0 = quick (low entropy), 1 = reference (high entropy)
+             model_choices[i] = 0 if entropy < self.threshold else 1
+         
++        self.last_scores = scores
+         # Update state based on batch decisions
+         self.state.last_model = "reference" if model_choices.any().item() else "quick"
+         return model_choices
+@@ -383,6 +389,7 @@ class NeuralSwitching(ModelSwitchingStrategy):
+         # Handle different output formats (single output or multi-class)
+         if model_output.shape[1] == 1:
+             critical_prob = torch.sigmoid(model_output).squeeze(-1)  # [batch_size]
++            self.last_scores = critical_prob.detach()
+             # Convert probabilities to binary decisions (0 = quick, 1 = reference)
+             self.model_choices_buffer[:batch_size].copy_((critical_prob >= self.threshold).to(torch.int))
+         else:
+@@ -390,6 +397,7 @@ class NeuralSwitching(ModelSwitchingStrategy):
+             # Classes: 0=match, 1=mismatch, 2=divergent
+             probabilities = torch.softmax(model_output, dim=1)  # [batch_size, num_classes]
+             critical_prob = probabilities[:, 2]  # Get probability of class 2 (divergent)
++            self.last_scores = critical_prob.detach()
+             self.model_choices_buffer[:batch_size].copy_((critical_prob >= self.threshold).to(torch.int))
+ 
+     def replay(self, outputs: ModelOutputs):
+@@ -470,6 +478,7 @@ class NeuralSwitching(ModelSwitchingStrategy):
+             # Handle different output formats (single output or multi-class)
+             if model_output.shape[1] == 1:
+                 critical_prob = torch.sigmoid(model_output).squeeze(-1)  # [batch_size]
++                self.last_scores = critical_prob.detach()
+                 # Convert probabilities to binary decisions (0 = quick, 1 = reference)
+                 model_choices = (critical_prob >= self.threshold).to(torch.int)
+             else:
+@@ -477,6 +486,7 @@ class NeuralSwitching(ModelSwitchingStrategy):
+                 # Classes: 0=match, 1=mismatch, 2=divergent
+                 probabilities = torch.softmax(model_output, dim=1)  # [batch_size, num_classes]
+                 critical_prob = probabilities[:, 2]  # Get probability of class 2 (divergent)
++                self.last_scores = critical_prob.detach()
+                 model_choices = (critical_prob >= self.threshold).to(torch.int)
+             
+             # For tracking state, we'll keep the most recent decision for each input
+diff --git a/script/inference/interactive_chat.py b/script/inference/interactive_chat.py
+index f19ece0..9c6ae8a 100644
+--- a/script/inference/interactive_chat.py
++++ b/script/inference/interactive_chat.py
+@@ -1,6 +1,7 @@
+ import os
++import random
+ os.environ['MASTER_ADDR'] = 'localhost'
+-os.environ.setdefault('MASTER_PORT', '29500')
++os.environ.setdefault('MASTER_PORT', str(random.randint(20000, 30000)))
+ import sys
+ import time
+ import argparse
+diff --git a/script/inference/launch_r2r_server.py b/script/inference/launch_r2r_server.py
+index b5ca7b3..bdf4b04 100644
+--- a/script/inference/launch_r2r_server.py
++++ b/script/inference/launch_r2r_server.py
+@@ -3,6 +3,10 @@ import os
+ import uvicorn
+ import multiprocessing as mp
+ import yaml
++import random
++
++os.environ['MASTER_ADDR'] = 'localhost'
++os.environ.setdefault('MASTER_PORT', str(random.randint(20000, 30000)))
+ 
+ from r2r.models import http_server
+ from r2r.models.http_server import app
+diff --git a/script/playground/speed_benchmark.py b/script/playground/speed_benchmark.py
+index 4d5a6f9..57e0023 100644
+--- a/script/playground/speed_benchmark.py
++++ b/script/playground/speed_benchmark.py
+@@ -1,6 +1,6 @@
+ import os
+ os.environ['MASTER_ADDR'] = 'localhost'
+-os.environ.setdefault('MASTER_PORT', '29500')
++os.environ.setdefault('MASTER_PORT', '29588')
+ import time
+ import argparse
+ import torch
+@@ -205,6 +205,7 @@ class ModelBenchmark:
+             }
+             try:
+                 engine = DynamicSimpleSGLangSelector(
++                    model_config=MODEL_DICT,
+                     device="cuda",
+                     dtype=torch.bfloat16,
+                     switching_strategy='neural',
